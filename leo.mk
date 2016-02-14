@@ -163,7 +163,7 @@ PRODUCT_COPY_FILES += \
 
 # Kernel
 PRODUCT_COPY_FILES += \
-    device/xiaomi/leo/kernel:kernel 
+    device/xiaomi/leo/kernel:kernel
 
 # Keymaster
 PRODUCT_PACKAGES += \
@@ -265,6 +265,10 @@ PRODUCT_PACKAGES += \
 # set default USB configuration
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=adb,mtp
+
+#misc
+PRODUCT_COPY_FILES += \
+	  $(call find-copy-subdir-files,*,$(LOCAL_PATH)/misc,system/etc)
 
 # call dalvik heap config
 $(call inherit-product-if-exists, frameworks/native/build/phone-xxxhdpi-3072-dalvik-heap.mk)
