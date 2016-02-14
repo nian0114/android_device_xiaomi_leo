@@ -262,11 +262,6 @@ PRODUCT_PACKAGES += \
     libtinyxml \
     libxml2
 
-#FINGERPRINT
-PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_FINGERPRINT=Xiaomi/leo/leo:5.1.1/LMY47V/V7.1.4.0.LXHCNCK:user/release-keys \
-    PRIVATE_BUILD_DESC="leo-user 5.1.1 LMY47V V7.1.4.0.LXHCNCK release-keys"
-
 # set default USB configuration
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=adb,mtp
