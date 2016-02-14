@@ -25,3 +25,4 @@ $(call inherit-product, vendor/mk/config/common_full_phone.mk)
 PRODUCT_DEVICE := leo
 PRODUCT_NAME := mk_leo
 PRODUCT_MANUFACTURER := Xiaomi
+PRODUCT_MODEL := MI NOTE Pro
