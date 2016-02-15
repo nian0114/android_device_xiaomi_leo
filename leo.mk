@@ -143,15 +143,10 @@ PRODUCT_PACKAGES += \
 
 # GPS
 PRODUCT_PACKAGES += \
-    gps.msm8994 \
-    flp.conf \
-    gps.conf \
-    izat.conf \
-    lowi.conf \
-    msap.conf \
-    quipc.conf \
-    sap.conf \
-    xtwifi.conf
+    gps.msm8994
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf
 
 # IRQ
 PRODUCT_COPY_FILES += \
