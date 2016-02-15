@@ -1,4 +1,4 @@
-# Copyright (C) 2015 The MoKee OpenSource Project
+# Copyright (C) 2015 The CyanogenMod OpenSource Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit from leo device
 $(call inherit-product, device/xiaomi/leo/leo.mk)
 
-# Inherit some common MK stuff.
-$(call inherit-product, vendor/mk/config/common_full_phone.mk)
+# Inherit some common CM stuff.
+$(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 PRODUCT_DEVICE := leo
-PRODUCT_NAME := mk_leo
+PRODUCT_NAME := cm_leo
 PRODUCT_MANUFACTURER := Xiaomi
 PRODUCT_MODEL := MI NOTE Pro

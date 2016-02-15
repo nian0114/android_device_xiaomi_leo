@@ -1,4 +1,4 @@
-# Copyright (C) 2015 The MoKee OpenSource Project
+# Copyright (C) 2015 The CyanogenMod OpenSource Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -191,10 +191,8 @@ BOARD_SEPOLICY_UNION += \
 # Time services
 BOARD_USES_QC_TIME_SERVICES := true
 
-# MK Hardware
-BOARD_USES_MOKEE_HARDWARE := true
-BOARD_HARDWARE_CLASS += \
-    hardware/mokee/mkhw
+# CM Hardware
+BOARD_HARDWARE_CLASS := device/xiaomi/leo/cmhw
 
 # inherit from the proprietary version
 -include vendor/xiaomi/leo/BoardConfigVendor.mk
