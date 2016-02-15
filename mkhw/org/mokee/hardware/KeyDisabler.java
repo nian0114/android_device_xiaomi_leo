@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2014 The CyanogenMod Project
- * Copyright (C) 2015 The MoKee OpenSource Project
+ * Copyright (C) 2014 The MoKee Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +16,6 @@
 
 package org.mokee.hardware;
 
-import java.io.File;
-
 import org.mokee.hardware.util.FileUtils;
 
 /*
@@ -32,17 +29,16 @@ import org.mokee.hardware.util.FileUtils;
 
 public class KeyDisabler {
 
-    private static String CONTROL_PATH = "/proc/nav_switch";
+    private static String GPIO_CONTROL_PATH = "/sys/devices/soc.0/gpio_keys.88/disabled_keys";
 
-    public static boolean isSupported() {
-        return new File(CONTROL_PATH).exists();
-    }
+    public static boolean isSupported() { return true; }
 
     public static boolean isActive() {
-        return (FileUtils.readOneLine(CONTROL_PATH).contains(":0"));
+        return (FileUtils.readOneLine(GPIO_CONTROL_PATH).equals("102,139,158"));
     }
 
     public static boolean setActive(boolean state) {
-        return FileUtils.writeLine(CONTROL_PATH, (state ? "0" : "1"));
+        return FileUtils.writeLine(GPIO_CONTROL_PATH, (state ? "102,139,158" : " "));
     }
+
 }
