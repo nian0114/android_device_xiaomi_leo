@@ -73,6 +73,7 @@ lib/libqminvapi.so
 lib/libqomx_core.so
 lib/libsensorservice.so
 lib/libgps.utils.so
+lib/libinvensense_hal.so
 lib/libloc_api_v02.so
 lib/libloc_core.so
 lib/libloc_ds_api.so
@@ -89,6 +90,7 @@ lib/hw/sensors.leo.so
 lib/hw/gps.default.so
 #lib64
 lib64/libgps.utils.so
+lib64/libinvensense_hal.so
 lib64/libloc_api_v02.so
 lib64/libloc_core.so
 lib64/libloc_ds_api.so
