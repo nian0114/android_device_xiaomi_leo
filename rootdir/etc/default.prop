@@ -1,10 +1,10 @@
 #
 # ADDITIONAL_DEFAULT_PROPERTIES
 #
-ro.secure=0
+ro.secure=1
 ro.allow.mock.location=0
-ro.adb.secure=0
-ro.debuggable=1
+ro.adb.secure=1
+ro.debuggable=0
 ro.zygote=zygote64_32
 persist.sys.timezone=Asia/Shanghai
 dalvik.vm.dex2oat-Xms=64m
