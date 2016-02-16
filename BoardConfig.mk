@@ -192,7 +192,9 @@ BOARD_SEPOLICY_UNION += \
 BOARD_USES_QC_TIME_SERVICES := true
 
 # CM Hardware
-BOARD_HARDWARE_CLASS := device/xiaomi/leo/cmhw
+BOARD_HARDWARE_CLASS := 
+	device/xiaomi/leo/cmhw \
+	hardware/cyanogen/cmhw
 
 # inherit from the proprietary version
 -include vendor/xiaomi/leo/BoardConfigVendor.mk
