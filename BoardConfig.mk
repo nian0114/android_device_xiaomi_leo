@@ -198,3 +198,9 @@ BOARD_HARDWARE_CLASS  += \
 
 # inherit from the proprietary version
 -include vendor/xiaomi/leo/BoardConfigVendor.mk
+
+# TWRP
+TW_THEME := portrait_hdpi
+BOARD_HAS_NO_REAL_SDCARD := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+RECOVERY_VARIANT := twrp
