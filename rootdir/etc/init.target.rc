@@ -31,6 +31,8 @@ on early-init
     mkdir /firmware 0771 system system
     mkdir /bt_firmware 0771 system system
     symlink /data/tombstones /tombstones
+    chown system root  /sys/module/msm_thermal/core_control/cpus_offlined
+    chmod 666 /sys/module/msm_thermal/core_control/cpus_offlined
 
 on init
     # Immersion
@@ -345,6 +347,7 @@ on charger
     chown root system /sys/class/power_supply/bms/voltage_ocv
     chmod 0664 /sys/class/power_supply/bms/current_now
     chmod 0664 /sys/class/power_supply/bms/voltage_ocv
+    start qcom-sh
 
 service ml_daemon /system/bin/ml_daemon
     class core
@@ -411,14 +414,6 @@ service dts_configurator /system/bin/dts_configurator
     group system
     oneshot
 
-service service_ad /system/bin/adenable
-    user root
-    oneshot
-    disabled
-
-on property:persist.sys.ltm_enable=*
-    start service_ad
-
 service gamut_mode /system/bin/gamutmode
     user root
     oneshot
@@ -427,11 +422,6 @@ service gamut_mode /system/bin/gamutmode
 on property:persist.sys.gamut_mode=*
     start gamut_mode
 
-service eyecare /system/bin/eyecare
-    class late_start
-    user root
-    group root
-
 service fidodaemon /system/vendor/bin/fidodaemon
     class late_start
     user system
@@ -439,3 +429,11 @@ service fidodaemon /system/vendor/bin/fidodaemon
 
 service mtservice /system/bin/mtd
     class late_start
+
+service vsimservice /system/bin/vsimd
+    class late_start
+
+service displayfeature /system/bin/displayfeature
+    class late_start
+    user root
+    group root
