@@ -328,6 +328,7 @@
 /dev/pipes(/.*)?                                u:object_r:pipe_device:s0
 /dev/qce                                        u:object_r:qce_device:s0
 /dev/msm-rng                                    u:object_r:rng_device:s0
+/dev/fpc1020                                    u:object_r:fpc_device:s0
 
 ###################################
 # Dev socket nodes
@@ -359,6 +360,7 @@
 /dev/socket/msm_irqbalance                      u:object_r:msm_irqbalance_socket:s0
 /dev/socket/seempdw                             u:object_r:seempdw_socket:s0
 /dev/socket/RIDL(/.*)?                          u:object_r:RIDL_socket:s0
+/dev/socket/fpcd(/.*)?                          u:object_r:fpcd_socket:s0
 
 ###################################
 # System files
@@ -457,12 +459,12 @@
 /system/bin/usf_pairing                         u:object_r:usf_exec:s0
 /system/bin/usf_tester                          u:object_r:usf_exec:s0
 /system/bin/immvibed                            u:object_r:immvibed_exec:s0
-/system/bin/adenable                            u:object_r:adenable_exec:s0
-/system/bin/eyecare                             u:object_r:eyecare_exec:s0
 /system/bin/smprosrv                            u:object_r:smprosrv_exec:s0
 /system/bin/smonsir                             u:object_r:smonsir_exec:s0
 /system/bin/smeloop                             u:object_r:smeloop_exec:s0
 /system/bin/mcStarter                           u:object_r:mcStarter_exec:s0
+/system/bin/displayfeature                      u:object_r:displayfeature_exec:s0
+/system/bin/fpcd                                u:object_r:fpcd_exec:s0
 
 ###################################
 # sysfs files
@@ -512,6 +514,8 @@
 /sys/bus/msm_subsys/devices/subsys4/restart_level                   u:object_r:sysfs_ssr_toggle:s0
 /sys/devices/soc0/.*                                                u:object_r:sysfs_socinfo:s0
 
+/sys/devices/soc.0/f9968000.spi/spi_master/spi12/spi12.0(/.*)?     u:object_r:sysfs_fpc_file:s0
+
 ###################################
 # data files
 #
@@ -541,7 +545,8 @@
 /data/misc/dts(/.*)?                                                u:object_r:dts_data_file:s0
 /data/misc/seemp(/.*)?                                              u:object_r:seemp_file:s0
 /data/misc/SelfHost(/.*)?                                           u:object_r:RIDL_data_file:s0
-
+/data/fpc_tpl(/.*)?                                                 u:object_r:fpcd_data_file:s0
+/data/fpc_tpl/s(/.*)?                                               u:object_r:fpc_stat_data_file:s0
 ###################################
 # persist files
 #
@@ -636,6 +641,7 @@
 #
 /system/xbin/shelld     u:object_r:shelld_exec:s0
 /system/xbin/mdb_svc    u:object_r:mdb_svc_exec:s0
+/system/bin/fdpp        u:object_r:fdpp_exec:s0
 
 #Devices
 /dev/android_mdb.*     u:object_r:mdb_device:s0
@@ -649,6 +655,7 @@
 /dev/xiaomi_memsw_state  u:object_r:mcd_device:s0
 /dev/xiaomi/memsw_state  u:object_r:mcd_device:s0
 /dev/block/zram.*        u:object_r:zram_device:s0
+/data/system/mcd(/.*)?   u:object_r:mcd_data_file:s0
 
 ########################################
 # Traffic saving related files and devices
@@ -661,6 +668,7 @@
 # theme runtime files
 #
 /data/system/theme(/.*)?      u:object_r:theme_data_file:s0
+/data/system/theme_magic(/.*)?      u:object_r:theme_data_file:s0
 
 ########################################
 # Dev socket nodes
@@ -672,3 +680,5 @@
 /cust(/.*)?         u:object_r:system_file:s0
 #line 1 "vendor/xiaomi/proprietary/mtdservice/sepolicy/file_contexts"
 /system/bin/mtd            u:object_r:mt_daemon_exec:s0
+#line 1 "vendor/xiaomi/proprietary/vsimservice/sepolicy/file_contexts"
+/system/bin/vsimd            u:object_r:vsim_daemon_exec:s0

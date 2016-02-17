@@ -111,6 +111,31 @@ on boot
     chown system system /sys/class/leds/green/blink
     chown system system /sys/class/leds/blue/blink
 
+    # config fingerprint fpc
+    chown system system /sys/bus/spi/devices/spi12.0/bus_lock
+    chown system system /sys/bus/spi/devices/spi12.0/clk_enable
+    chown system system /sys/bus/spi/devices/spi12.0/fabric_vote
+    chown system system /sys/bus/spi/devices/spi12.0/hw_reset
+    chown system system /sys/bus/spi/devices/spi12.0/input
+    chown system system /sys/bus/spi/devices/spi12.0/modalias
+    chown system system /sys/bus/spi/devices/spi12.0/pinctl_set
+    chown system system /sys/bus/spi/devices/spi12.0/power
+    chown system system /sys/bus/spi/devices/spi12.0/spi_owner
+    chown system system /sys/bus/spi/devices/spi12.0/spi_prepare
+    chown system system /sys/bus/spi/devices/spi12.0/uevent
+
+    chmod 666 /sys/bus/spi/devices/spi12.0/bus_lock
+    chmod 666 /sys/bus/spi/devices/spi12.0/clk_enable
+    chmod 666 /sys/bus/spi/devices/spi12.0/fabric_vote
+    chmod 666 /sys/bus/spi/devices/spi12.0/hw_reset
+    chmod 666 /sys/bus/spi/devices/spi12.0/input
+    chmod 666 /sys/bus/spi/devices/spi12.0/modalias
+    chmod 666 /sys/bus/spi/devices/spi12.0/pinctl_set
+    chmod 666 /sys/bus/spi/devices/spi12.0/power
+    chmod 666 /sys/bus/spi/devices/spi12.0/spi_owner
+    chmod 666 /sys/bus/spi/devices/spi12.0/spi_prepare
+    chmod 666 /sys/bus/spi/devices/spi12.0/uevent
+
     setprop wifi.interface wlan0
 
 #   Define TCP buffer sizes for various networks
@@ -301,18 +326,18 @@ on post-fs-data
     mkdir /data/system/perfd 0770 root system
     chmod 2770 /data/system/perfd
 
-service qfintverify /sbin/qfintverify
-    user root
-    class core
-    seclabel u:r:qfips:s0
-    oneshot
-
     # RIDL data
     mkdir /data/misc/SelfHost/ 0710 system shell
     mkdir /data/misc/SelfHost/QCLogs/ 2750 system shell
     mkdir /data/misc/SelfHost/QCLogs/temp/ 0700 system shell
     mkdir /data/misc/SelfHost/storage/ 0700 system shell
     mkdir /data/misc/SelfHost/Running/ 2750 system shell
+
+service qfintverify /sbin/qfintverify
+    user root
+    class core
+    seclabel u:r:qfips:s0
+    oneshot
 
 service qcomsysd /system/bin/qcom-system-daemon
     class main
@@ -454,7 +479,7 @@ on property:wc_transport.start_hci=false
 service start_hci_filter /system/bin/wcnss_filter
     class late_start
     user bluetooth
-    group bluetooth qcom_diag
+    group bluetooth qcom_diag net_bt_admin sdcard_rw sdcard_r media_rw
     disabled
 
 on property:wc_transport.start_root=true
@@ -466,7 +491,7 @@ on property:wc_transport.start_root=false
 service hci_filter_root /system/bin/wcnss_filter
     class late_start
     user bluetooth
-    group bluetooth qcom_diag net_bt_stack system
+    group bluetooth qcom_diag net_bt_stack system net_bt_admin sdcard_rw sdcard_r media_rw
     disabled
 
 service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
