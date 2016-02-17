@@ -179,6 +179,13 @@ TARGET_USERIMAGES_USE_F2FS := true
 # Recovery
 TARGET_RECOVERY_FSTAB := device/xiaomi/leo/rootdir/etc/fstab.qcom
 
+# TWRP
+TW_THEME := portrait_hdpi
+BOARD_HAS_NO_REAL_SDCARD := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+TW_EXTRA_LANGUAGES := true
+RECOVERY_VARIANT := twrp
+
 #TARGET_OTA_ASSERT_DEVICE := leo
 
 # SELinux
