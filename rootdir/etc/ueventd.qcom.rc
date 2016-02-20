@@ -50,6 +50,8 @@
 
 /dev/tspdrv               0660   system     system
 
+/dev/fpc1020              0666   system     system
+
 #permissions for CSVT
 /dev/smd11                0660   radio      radio
 

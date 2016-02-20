@@ -1,8 +1,8 @@
 ro.product.name=leo
 ro.product.device=leo
 ro.product.model=MI NOTE Pro
-ro.build.description=leo-user 5.1.1 LMY47V 6.2.16 release-keys
-ro.build.fingerprint=Xiaomi/leo/leo:5.1.1/LMY47V/6.2.16:user/release-keys
+ro.build.description=leo-user 5.1.1 LMY47V 6.2.18 release-keys
+ro.build.fingerprint=Xiaomi/leo/leo:5.1.1/LMY47V/6.2.18:user/release-keys
 
 #
 # system.prop for plutonium
@@ -255,6 +255,7 @@ persist.sys.display_prefer=0
 ro.carrier=unknown
 ro.ril.hsxpa=1
 ro.ril.gprsclass=10
+ro.adb.qemud=1
 ro.vendor.extension_library=libqti-perfd-client.so
 ro.btconfig.if=uart
 ro.btconfig.dev=/dev/ttyHS0
