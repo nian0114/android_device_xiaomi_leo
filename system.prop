@@ -4,6 +4,9 @@ ro.product.model=MI NOTE Pro
 ro.build.description=leo-user 5.1.1 LMY47V 6.2.18 release-keys
 ro.build.fingerprint=Xiaomi/leo/leo:5.1.1/LMY47V/6.2.18:user/release-keys
 
+# Maintainer
+ro.mk.maintainer=nian
+
 #
 # system.prop for plutonium
 #
