@@ -231,7 +231,7 @@ persist.fd.scron.timer=10000
 
 # HiFi
 ro.audio.hifi=true
-persist.audio.hifi=false
+persist.audio.hifi=true
 persist.audio.hifi.volume=73
 
 #Enable for IMS feature
