@@ -45,11 +45,10 @@ TARGET_BOARD_SUFFIX := _64
 TARGET_USES_64_BIT_BINDER := true
 
 # Kernel
-TARGET_KERNEL_SOURCE := kernel/xiaomi/leo
-TARGET_KERNEL_CONFIG := leo_nian_defconfig
+TARGET_KERNEL_SOURCE := kernel/xiaomi/libra
+TARGET_KERNEL_CONFIG := leo_user_defconfig
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-5 ramoops_memreserve=2M androidboot.selinux=permissive
 
-#TARGET_PREBUILT_KERNEL := device/xiaomi/leo/kernel
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_KERNEL_BASE        := 0x00000000
