@@ -1,6 +1,7 @@
 [
   {
     "repository": "android_kernel_xiaomi_libra",
+    "branch": "mkm",
     "target_path": "kernel/xiaomi/libra"
   },
   {
