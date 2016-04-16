@@ -44,6 +44,10 @@ ENABLE_CPUSETS := true
 TARGET_BOARD_SUFFIX := _64
 TARGET_USES_64_BIT_BINDER := true
 
+#some flags to make blobs work
+COMMON_GLOBAL_CFLAGS += \
+    -DPRE_BT_FIRMWARE_PATH
+    
 # Kernel
 TARGET_KERNEL_SOURCE := kernel/xiaomi/libra
 TARGET_KERNEL_CONFIG := leo_user_defconfig
