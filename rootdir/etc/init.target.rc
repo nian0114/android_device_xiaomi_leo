@@ -162,16 +162,6 @@ service thermal-engine /system/bin/thermal-engine
    socket thermal-recv-passive-client stream 0666 system system
    group root
 
-service security-check1 /sbin/security_boot_check system
-    class core
-    oneshot
-    disabled
-
-service security-check2 /sbin/security_boot_check recovery
-    class core
-    oneshot
-    disabled
-
 service time_daemon /system/bin/time_daemon
    class late_start
    user root
@@ -254,13 +244,13 @@ service imsdatadaemon /system/bin/imsdatadaemon
     socket ims_datad stream 0660 system radio
     group system wifi radio inet net_raw log qcom_diag net_admin
     disabled
-#
-#service wcnss-service /system/bin/wcnss_service
-#    class late_start
-#    user root
-#    group system wifi
-#    oneshot
-#
+
+service wcnss-service /system/bin/wcnss_service
+    class late_start
+    user root
+    group system wifi
+    oneshot
+
 
 service smonsir /system/bin/smonsir
     user root
@@ -347,66 +337,22 @@ on charger
     chown root system /sys/class/power_supply/bms/voltage_ocv
     chmod 0664 /sys/class/power_supply/bms/current_now
     chmod 0664 /sys/class/power_supply/bms/voltage_ocv
-    start qcom-sh
 
 service ml_daemon /system/bin/ml_daemon
     class core
     user root
     group root
-    disabled
 
 service seald /system/bin/seald
     class late_start
     user root
     group system
-    disabled
-
-service bugreport_daemon /system/xbin/bugreport_daemon
-    class late_start
 
 service energy-awareness /system/bin/energy-awareness
     class main
     user root
     group system
     oneshot
-
-on property:persist.sys.display_ce=0
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0xF0
-on property:persist.sys.display_ce=10
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0xF0
-on property:persist.sys.display_ce=11
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x10
-
-on property:persist.sys.display_cabc=0
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0xF00
-on property:persist.sys.display_cabc=1
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x100
-on property:persist.sys.display_cabc=2
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x200
-on property:persist.sys.display_cabc=3
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x300
-on property:persist.sys.display_cabc=4
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x400
-
-on property:persist.sys.display_level=0
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0xF000
-on property:persist.sys.display_level=1
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x1000
-on property:persist.sys.display_level=2
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x2000
-on property:persist.sys.display_level=3
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x3000
-on property:persist.sys.display_level=4
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x4000
-on property:persist.sys.display_level=5
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x5000
-on property:persist.sys.display_level=6
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x6000
-
-on property:persist.sys.display_idle=1
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0xA0000
-on property:persist.sys.display_idle=0
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0xF0000
 
 service dts_configurator /system/bin/dts_configurator
     class main
@@ -428,9 +374,6 @@ service fidodaemon /system/vendor/bin/fidodaemon
     group system
 
 service mtservice /system/bin/mtd
-    class late_start
-
-service vsimservice /system/bin/vsimd
     class late_start
 
 service displayfeature /system/bin/displayfeature

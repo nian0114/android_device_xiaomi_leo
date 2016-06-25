@@ -1,0 +1,9 @@
+on init
+    write /sys/devices/platform/msm_hsusb/gadget/lun0/ro 0
+    
+    write /sys/class/android_usb/android0/iManufacturer "Xiaomi"
+    write /sys/class/android_usb/android0/iProduct "MI NOTE Pro"
+    
+
+
+

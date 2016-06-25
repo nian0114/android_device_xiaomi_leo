@@ -166,7 +166,7 @@ chown -h system.system /sys/class/leds/button-backlight/brightness
 chown -h system.system /sys/class/leds/button-backlight1/brightness
 
 # Update the panel color property
-if [ $(getprop ro.boot.hwversion | grep -e 3.*) ]; then
+if [ $(getprop ro.boot.hwversion | grep -e [34].*) ]; then
     if [ -f /sys/bus/i2c/devices/2-004a/panel_color ]; then
         # Atmel
         color=`cat /sys/bus/i2c/devices/2-004a/panel_color`

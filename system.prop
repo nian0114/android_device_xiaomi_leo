@@ -1,9 +1,3 @@
-ro.product.name=leo
-ro.product.device=leo
-ro.product.model=MI NOTE Pro
-ro.build.description=leo-user 5.1.1 LMY47V 6.2.18 release-keys
-ro.build.fingerprint=Xiaomi/leo/leo:5.1.1/LMY47V/6.2.18:user/release-keys
-
 # Maintainer
 ro.mk.maintainer=nian
 
@@ -28,7 +22,7 @@ persist.sys.ssr.enable_ramdumps=1
 persist.radio.multisim.config=dsds
 DEVICE_PROVISIONED=1
 # Start in TD-SCDMA, GSM/WCDMA and LTE mode
-#ro.telephony.default_network=20
+ro.telephony.default_network=22
 
 debug.sf.hw=1
 debug.egl.hw=1
@@ -43,8 +37,6 @@ persist.hwc.ptor.enable=true
 dalvik.vm.heapsize=36m
 dev.pm.dyn_samplingrate=1
 persist.demo.hdmirotationlock=false
-
-# ro.sf.lcd_density=640
 
 ro.hdmi.enable=true
 persist.speaker.prot.enable=true
@@ -67,14 +59,15 @@ media.stagefright.enable-scan=true
 mmp.enable.3g2=true
 mm.enable.smoothstreaming=true
 media.aac_51_output_enabled=true
+av.debug.disable.pers.cache=true
 
 #set default player to awesomeplayer
 media.stagefright.use-awesome=false
 
-#3314291: Decimal sum after adding FLAC parser flag 131072
+#3379827: Decimal sum after adding WAV parser flag
 #37491 is decimal sum of supported codecs in AAL
 #codecs: DivX DivXHD AVI AC3 ASF AAC QCP DTS 3G2 MP2TS
-mm.enable.qcom_parser=3314291
+mm.enable.qcom_parser=3379827
 
 # Enable AwesomePlayer stats
 persist.debug.sf.statistics=1
@@ -112,10 +105,6 @@ ro.qualcomm.cabl=0
 ro.qcom.ad=1
 ro.qcom.ad.calib.data=/system/etc/calib.cfg
 ro.qcom.ad.sensortype=2
-# debug
-debug.listener.logs=1
-debug.ad.logs=1
-#debug.als.logs=1
 
 #
 # System props for telephony
@@ -126,11 +115,6 @@ telephony.lteOnCdmaDevice=1
 # System props for bluetooth
 # System prop to turn on hfp client
 bluetooth.hfp.client=1
-
-
-#Simulate sdcard on /data/media
-#
-persist.fuse_sdcard=true
 
 #system prop for Bluetooth SOC type
 qcom.bluetooth.soc=rome
@@ -163,7 +147,7 @@ audio.offload.gapless.enabled=true
 audio.offload.buffer.size.kb=32
 
 #Enable offload audio video playback by default
-av.offload.enable=true
+audio.offload.video=true
 
 #Disable offload except for PCM
 audio.offload.disable=1
@@ -195,9 +179,6 @@ ro.hwui.text_small_cache_height=1024
 ro.hwui.text_large_cache_width=2048
 ro.hwui.text_large_cache_height=2048
 
-# enable usb otg setting
-persist.sys.isUsbOtgEnabled=true
-
 #enable voice path for PCM VoIP by default
 use.voice.path.for.pcm.voip=true
 
@@ -216,10 +197,6 @@ audio.dolby.ds2.hardbypass=true
 audio.offload.passthrough=false
 audio.offload.multiple.enabled=true
 
-# button jack mode & switch
-persist.sys.button_jack_profile=volume
-persist.sys.button_jack_switch=0
-
 # disable strictmode
 persist.sys.strictmode.disable=true
 
@@ -234,7 +211,7 @@ persist.fd.scron.timer=10000
 
 # HiFi
 ro.audio.hifi=true
-persist.audio.hifi=true
+persist.audio.hifi=false
 persist.audio.hifi.volume=73
 
 #Enable for IMS feature
@@ -255,10 +232,8 @@ persist.radio.ignore_dom_time=5
 # default color_prefer is off
 persist.sys.display_prefer=0
 
-ro.carrier=unknown
-ro.ril.hsxpa=1
-ro.ril.gprsclass=10
-ro.adb.qemud=1
+ro.sf.lcd_density=560
+
 ro.vendor.extension_library=libqti-perfd-client.so
 ro.btconfig.if=uart
 ro.btconfig.dev=/dev/ttyHS0
@@ -271,7 +246,5 @@ persist.loc.nlp_name=com.qualcomm.location
 ro.gps.agps_provider=1
 ro.pip.gated=0
 persist.data.qmi.adb_logmask=0
-ro.product.manufacturer=Xiaomi
 keyguard.no_require_sim=true
-ro.product.cuptsm=XIAOMI|ESE|02|01
 persist.radio.apm_sim_not_pwdn=1

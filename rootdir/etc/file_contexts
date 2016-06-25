@@ -478,10 +478,6 @@
 /sys/devices/msm_otg/power_supply/usb(/.*)?                         u:object_r:sysfs_usb_supply:s0
 /sys/devices/platform/battery_current_limit                         u:object_r:sysfs_thermal:s0
 /sys/devices/qpnp-charger.*/power_supply/battery(/.*)?              u:object_r:sysfs_battery_supply:s0
-/sys/devices/soc\.0/leds-qpnp-.*/leds/.*/brightness              -- u:object_r:sysfs_brightness_writable:s0
-/sys/devices/soc\.0/leds-qpnp-.*/leds/.*/max_brightness              -- u:object_r:sysfs_brightness_writable:s0
-/sys/devices/soc\.0/.*\.qcom,mdss_mdp/qcom,mdss_fb_primary.*/leds/lcd-backlight/brightness -- u:object_r:sysfs_brightness_writable:s0
-/sys/devices/soc\.0/qcom,camera-flash.*/leds/flashlight/brightness -- u:object_r:sysfs_brightness_writable:s0
 /sys/devices/system/cpu/cpu0/rq-stats/*                             u:object_r:sysfs_rqstats:s0
 /sys/devices/virtual/graphics/fb([0-2])+/idle_time                  u:object_r:sysfs_graphics:s0
 /sys/devices/virtual/graphics/fb([0-2])+/dynamic_fps                u:object_r:sysfs_graphics:s0
@@ -663,6 +659,11 @@
 /dev/socket/tunman       u:object_r:tunman_socket:s0
 /system/xbin/tunman      u:object_r:tunman_exec:s0
 
+########################################
+# Core dump for miui native debug
+#
+/data/system/nativedebug(/.*)?         u:object_r:miui_native_file:s0
+/data/system/nativedebug/core(/.*)?    u:object_r:miui_coredump_file:s0
 
 ########################################
 # theme runtime files
@@ -678,7 +679,19 @@
 # Cust files
 #
 /cust(/.*)?         u:object_r:system_file:s0
+#line 1 "vendor/graphiteplus/proprietary/sepolicy//file_contexts"
+/data/user/1[0-9]+/.*  u:object_r:app_data_file:s0
+/data/user/1[0-9]+/com.android.providers.downloads/cache u:object_r:download_file:s0
+/dev/socket/ss(/.*)?  u:object_r:securespaces_socket:s0
+/system/bin/ssServices u:object_r:zygote_exec:s0
+/system/bin/namespaceInit	u:object_r:zygote_exec:s0
+/system/bin/namespaceCreateSvc	u:object_r:namespacecreate_exec:s0
+
 #line 1 "vendor/xiaomi/proprietary/mtdservice/sepolicy/file_contexts"
 /system/bin/mtd            u:object_r:mt_daemon_exec:s0
 #line 1 "vendor/xiaomi/proprietary/vsimservice/sepolicy/file_contexts"
 /system/bin/vsimd            u:object_r:vsim_daemon_exec:s0
+#line 1 "device/xiaomi/leo/sensors/SensorDataCollection/sepolicy/file_contexts"
+/system/bin/SensorDataCollection           u:object_r:sensordebug_exec:s0
+
+/sys/bus/iio/devices/iio\:device2(/.*)?           u:object_r:sysfs_sensordebug:s0

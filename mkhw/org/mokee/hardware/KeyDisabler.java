@@ -29,7 +29,7 @@ import org.mokee.hardware.util.FileUtils;
 
 public class KeyDisabler {
 
-    private static String GPIO_CONTROL_PATH = "/sys/devices/soc.0/gpio_keys.88/disabled_keys";
+    private static String GPIO_CONTROL_PATH = "/sys/devices/soc.0/gpio_keys.87/disabled_keys";
 
     public static boolean isSupported() { return true; }
 

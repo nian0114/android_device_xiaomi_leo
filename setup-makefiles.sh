@@ -29,10 +29,20 @@ LINEEND=" \\"
 COUNT=`wc -l proprietary-files.txt | awk {'print $1'}`
 DISM=`egrep -c '(^#|^$)' proprietary-files.txt`
 COUNT=`expr $COUNT - $DISM`
-for FILE in `egrep -v '(^#|^$)' ../$DEVICE/proprietary-files.txt`; do
+for FILE in `egrep -v '(^#|^$)' proprietary-files.txt`; do
   COUNT=`expr $COUNT - 1`
+  if [ $COUNT = "0" ]; then
+    LINEEND=""
+  fi
+  # Split the file from the destination (format is "file[:destination]")
+  OLDIFS=$IFS IFS=":" PARSING_ARRAY=($FILE) IFS=$OLDIFS
   if [[ ! "$FILE" =~ ^-.* ]]; then
-    echo "        $OUTDIR/proprietary/$FILE:system/$FILE$LINEEND" >> $MAKEFILE
+    FILE=`echo ${PARSING_ARRAY[0]} | sed -e "s/^-//g"`
+    DEST=${PARSING_ARRAY[1]}
+    if [ -n "$DEST" ]; then
+      FILE=$DEST
+    fi
+    echo "    $OUTDIR/proprietary/$FILE:system/$FILE$LINEEND" >> $MAKEFILE
   fi
 done
 
@@ -214,8 +224,6 @@ LOCAL_MULTILIB := both
 LOCAL_PROPRIETARY_MODULE := true
 include \$(BUILD_PREBUILT)
 
-\$(shell mkdir -p \$(PRODUCT_OUT)/system/vendor/lib/egl && pushd \$(PRODUCT_OUT)/system/vendor/lib > /dev/null && ln -s egl/libEGL_adreno.so libEGL_adreno.so && popd > /dev/null)
-\$(shell mkdir -p \$(PRODUCT_OUT)/system/vendor/lib64/egl && pushd \$(PRODUCT_OUT)/system/vendor/lib64 > /dev/null && ln -s egl/libEGL_adreno.so libEGL_adreno.so && popd > /dev/null)
-
 endif
+
 EOF

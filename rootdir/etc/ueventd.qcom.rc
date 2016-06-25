@@ -227,7 +227,6 @@
 # Ramdump devices
 /dev/ramdump*             0640   system     system
 
-
 # for lirc
 /dev/lirc0          0660   system     system
 
@@ -700,3 +699,4 @@
 /sys/devices/soc.0/f9927000.i2c/i2c-13/13-006b/iio:device*   scan_elements/in_timestamp_index        0440    system  system
 /sys/devices/soc.0/f9927000.i2c/i2c-13/13-006b/iio:device*   scan_elements/in_timestamp_type 0440    system  system
 /sys/devices/soc.0/f9927000.i2c/i2c-13/13-006b/iio:device*   trigger/current_trigger         0660    system  system
+
