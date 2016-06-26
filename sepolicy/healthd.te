@@ -1,3 +1,1 @@
-allow healthd sysfs_thermal:dir search;
-allow healthd sysfs_thermal:file { read open };
-allow healthd rtc_device:chr_file rw_file_perms;
+allow healthd device:dir r_dir_perms;

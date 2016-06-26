@@ -23,44 +23,53 @@ TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := cortex-a53
+TARGET_2ND_CPU_VARIANT := cortex-a53.a57
 TARGET_CPU_CORTEX_A53 := true
+ENABLE_CPUSETS := true
+TARGET_USES_64_BIT_BINDER := true
 TARGET_CPU_SMP := true
+
+#some flags to make blobs work
+COMMON_GLOBAL_CFLAGS += \
+    -DFORCE_HWC_COPY_FOR_VIRTUAL_DISPLAYS \
+    -DMIUI_SENSOR_LSM6DB0 \
+    -DPRE_BT_FIRMWARE_PATH
 
 # Graphics
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_USES_ION := true
 TARGET_USES_NEW_ION_API :=true
 TARGET_USES_OVERLAY := true
-
-USE_OPENGL_RENDERER := true
-BOARD_USE_LEGACY_UI := true
+TARGET_USES_C2D_COMPOSITION := true
+TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
+MAX_VIRTUAL_DISPLAY_DIMENSION := 2048
 
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 
 HAVE_ADRENO_SOURCE:= false
 OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
+BOARD_USES_OPENSSL_SYMBOLS := true
 
-TARGET_USES_C2D_COMPOSITION := true
+# Enable keymaster app checking
+TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true
 
-#GPS
+# GPS
 TARGET_NO_RPC := true
+USE_DEVICE_SPECIFIC_GPS := true
+USE_DEVICE_SPECIFIC_LOC_API := true
 
 # ANT+
-BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
+BOARD_ANT_WIRELESS_DEVICE := "qualcomm-uart"
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
+TARGET_NO_RPC := true
+BOARD_SUPPORTS_SOUND_TRIGGER := false
 
-AUDIO_FEATURE_ENABLED_ANC_HEADSET := true
-AUDIO_FEATURE_ENABLED_CUSTOMSTEREO := true
-AUDIO_FEATURE_ENABLED_SPKR_PROTECTION := true
-AUDIO_FEATURE_ENABLED_DTS_EAGLE := true
-AUDIO_FEATURE_ENABLED_MULTIPLE_TUNNEL := true
 AUDIO_FEATURE_ENABLED_ACDB_LICENSE := true
 AUDIO_FEATURE_ENABLED_COMPRESS_CAPTURE := true
 AUDIO_FEATURE_ENABLED_COMPRESS_VOIP := true
@@ -68,35 +77,37 @@ AUDIO_FEATURE_ENABLED_DS2_DOLBY_DAP := true
 AUDIO_FEATURE_ENABLED_EXTN_FORMATS := true
 AUDIO_FEATURE_ENABLED_FLAC_OFFLOAD := true
 AUDIO_FEATURE_ENABLED_FLUENCE := true
-AUDIO_FEATURE_ENABLED_FM := true
 AUDIO_FEATURE_ENABLED_HFP := true
-AUDIO_FEATURE_ENABLED_INCALL_MUSIC := true
 AUDIO_FEATURE_ENABLED_KPI_OPTIMIZE := true
 AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
 AUDIO_FEATURE_ENABLED_LOW_LATENCY_CAPTURE := true
-AUDIO_FEATURE_ENABLED_INCALL_MUSIC := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 AUDIO_FEATURE_ENABLED_PCM_OFFLOAD := true
 AUDIO_FEATURE_ENABLED_PCM_OFFLOAD_24 := true
 AUDIO_FEATURE_ENABLED_PROXY_DEVICE := true
+AUDIO_USE_LL_AS_PRIMARY_OUTPUT := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH_QCOM := true
 BOARD_HAS_QCA_BT_ROME := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/xiaomi/leo/bluetooth
+QCOM_BT_USE_BTNV := true
+QCOM_BT_USE_SMD_TTY := true
+WCNSS_FILTER_USES_SIBS := true
 
 USE_OPENGL_RENDERER := true
 BOARD_USE_LEGACY_UI := true
 
 #Kernel
-#BOARD_CUSTOM_BOOTIMG_MK := device/xiaomi/leo/mkbootimg.mk
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-5 ramoops_memreserve=2M androidboot.selinux=permissive
+BOARD_CUSTOM_BOOTIMG_MK := device/xiaomi/leo/mkbootimg.mk
+TARGET_KERNEL_SOURCE := kernel/xiaomi/libra
+TARGET_KERNEL_CONFIG := cyanogenmod_leo_defconfig
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-5 ramoops_memreserve=2M androidboot.selinux=disabled
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_BASE        := 0x00000000
 BOARD_KERNEL_PAGESIZE    := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
 BOARD_RAMDISK_OFFSET     := 0x02000000
-TARGETE_USES_UNCOMPRESSED_KERNEL := false
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
@@ -104,8 +115,12 @@ TARGET_USES_UNCOMPRESSED_KERNEL := true
 BOARD_DTBTOOL_ARGS := -2
 BOARD_KERNEL_IMAGE_NAME := Image
 
-# Lights
-TARGET_PROVIDES_LIBLIGHT := true
+WLAN_MODULES:
+	mkdir -p $(KERNEL_MODULES_OUT)/qca_cld
+	mv $(KERNEL_MODULES_OUT)/wlan.ko $(KERNEL_MODULES_OUT)/qca_cld/qca_cld_wlan.ko
+	ln -sf /system/lib/modules/qca_cld/qca_cld_wlan.ko $(TARGET_OUT)/lib/modules/wlan.ko
+
+TARGET_KERNEL_MODULES += WLAN_MODULES
 
 # fix this up by examining /proc/mtd on a running device
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864 #64M
@@ -114,8 +129,10 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2013265920 #1920M
 BOARD_CACHEIMAGE_PARTITION_SIZE := 402653184 #384M
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 27980184576 #26G
 TARGET_USERIMAGES_USE_EXT4 := true
+ifneq (,$(filter linux darwin, $(HOST_OS)))
+TARGET_USERIMAGES_USE_F2FS := true
+endif
 BOARD_FLASH_BLOCK_SIZE := 131072 #262144 #(BOARD_KERNEL_PAGESIZE * 64)
-BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
@@ -123,7 +140,9 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 TARGET_INIT_VENDOR_LIB := libinit_msm
 
+# CNE and DPM
 TARGET_LDPRELOAD := libNimsWrap.so
+BOARD_USES_QCNE := true
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
@@ -131,10 +150,17 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 # Once camera module can run in the native mode of the system (either
 # 32-bit or 64-bit), the following line should be deleted
 BOARD_QTI_CAMERA_32BIT_ONLY := true
+COMMON_GLOBAL_CFLAGS += -DCAMERA_VENDOR_L_COMPAT
+
+#Light HAL
+TARGET_PROVIDES_LIBLIGHT := true
 
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_SHOW_PERCENTAGE := true
+BOARD_CHARGER_DISABLE_INIT_BLANK := true
+BOARD_HAL_STATIC_LIBRARIES += \
+    libhealthd.msm8994
 
 # Added to indicate that protobuf-c is supported in this build
 PROTOBUF_SUPPORTED := true
@@ -151,6 +177,9 @@ TARGET_POWERHAL_VARIANT := qcom
 # Qualcomm support
 BOARD_USES_QCOM_HARDWARE := true
 
+# QC_AV
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
+
 # Time services
 BOARD_USES_QC_TIME_SERVICES := true
 
@@ -162,10 +191,9 @@ BOARD_HARDWARE_CLASS := device/xiaomi/leo/mkhw \
      hardware/mokee/mkhw
 
 # Ril
+FEATURE_QCRIL_UIM_SAP_SERVER_MODE := true
 TARGET_RIL_VARIANT := caf
-SIM_COUNT := 2
-TARGET_GLOBAL_CFLAGS += -DANDROID_MULTI_SIM
-TARGET_GLOBAL_CPPFLAGS += -DANDROID_MULTI_SIM
+
 # Added to indicate that protobuf-c is supported in this build
 PROTOBUF_SUPPORTED := true
 
@@ -208,19 +236,6 @@ TARGET_RECOVERY_QCOM_RTC_FIX := true
 BOARD_SUPPRESS_SECURE_ERASE := true
 TW_EXTERNAL_STORAGE_PATH := "/usb-otg"
 TW_EXTERNAL_STORAGE_MOUNT_POINT := "usb-otg"
-
-# Enable dex pre-opt to speed up initial boot
-#ifneq ($(TARGET_USES_AOSP),true)
-#  ifeq ($(HOST_OS),linux)
-#    ifeq ($(WITH_DEXPREOPT),)
-#      WITH_DEXPREOPT := true
-#      ifneq ($(TARGET_BUILD_VARIANT),user)
-#        # Retain classes.dex in APK's for non-user builds
-#        DEX_PREOPT_DEFAULT := nostripping
-#      endif
-#    endif
-#  endif
-#endif
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk

@@ -1,2 +1,5 @@
-allow mediaserver system_data_file:file { open append create };
-allow mediaserver system_data_file:dir { write add_name };
+allow mediaserver system_file:file execmod;
+
+allow mediaserver sensorservice_service:service_manager find;
+binder_call(mediaserver, servicemanager);
+binder_call(mediaserver, sensorservice_service);

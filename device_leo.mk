@@ -12,13 +12,13 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
 #chargeonlymode
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/sbin/chargeonlymode:root/sbin/chargeonlymode \
-    $(LOCAL_PATH)/rootdir/etc/sbin/adbd:root/sbin/adbd 
+    $(LOCAL_PATH)/rootdir/etc/sbin/chargeonlymode:root/sbin/chargeonlymode
 
 #media
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml \
-    $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml
+    $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/media/media_codecs_performance.xml:system/etc/media_codecs_performance.xml
 
 #acdbdata
 PRODUCT_COPY_FILES += \
@@ -45,8 +45,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/permissions/cneapiclient.xml:system/etc/permissions/cneapiclient.xml \
     $(LOCAL_PATH)/permissions/com.qti.snapdragon.sdk.display.xml:system/etc/permissions/com.qti.snapdragon.sdk.display.xml \
-    $(LOCAL_PATH)/permissions/com.qualcomm.location.vzw_library.xml:system/etc/permissions/com.qualcomm.location.vzw_library.xml \
-    $(LOCAL_PATH)/permissions/com.qualcomm.location.xml:system/etc/permissions/com.qualcomm.location.xml \
     $(LOCAL_PATH)/permissions/com.quicinc.cne.xml:system/etc/permissions/com.quicinc.cne.xml \
     $(LOCAL_PATH)/permissions/dpmapi.xml:system/etc/permissions/dpmapi.xml \
     $(LOCAL_PATH)/permissions/embms.xml:system/etc/permissions/embms.xml \
@@ -80,14 +78,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/data/netmgr_config.xml:system/etc/data/netmgr_config.xml \
     $(LOCAL_PATH)/data/qmi_config.xml:system/etc/data/qmi_config.xml 
 
-#gps
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf
-
 #misc
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/misc,system/etc)
-
 
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
@@ -126,9 +119,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/native/data/etc/android.hardware.sensor.barometer.xml:system/etc/permissions/android.hardware.sensor.barometer.xml \
     frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
-    frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:system/etc/permissions/android.hardware.sensor.stepdetector.xml \
-    frameworks/native/data/etc/android.hardware.sensor.ambient_temperature.xml:system/etc/permissions/android.hardware.sensor.ambient_temperature.xml \
-    frameworks/native/data/etc/android.hardware.sensor.relative_humidity.xml:system/etc/permissions/android.hardware.sensor.relative_humidity.xml
+    frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:system/etc/permissions/android.hardware.sensor.stepdetector.xml
 
 #FEATURE_OPENGLES_EXTENSION_PACK support string config file
 PRODUCT_COPY_FILES += \
@@ -138,8 +129,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     AntHalService \
-    libantradio \
-    antradio_app
+    libantradio
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -148,6 +138,9 @@ PRODUCT_PACKAGES += \
     audio.usb.default \
     audio.r_submix.default \
     audio.primary.msm8994 \
+    libqcompostprocbundle \
+    libqcomvisualizer \
+    libqcomvoiceprocessing \
     tinymix
 
 PRODUCT_PACKAGES += \
@@ -164,9 +157,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images
 
-# Connectivity Engine support
+# Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \
-    libcnefeatureconfig
+    CNEService \
+    cneapiclient \
+    com.quicinc.cne \
+    libcnefeatureconfig \
+    services-ext
 
 # Curl
 PRODUCT_PACKAGES += \
@@ -179,25 +176,21 @@ PRODUCT_PACKAGES += \
     make_ext4fs \
     setup_fs
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/gps/flp.conf:system/etc/flp.conf \
+    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf \
+    $(LOCAL_PATH)/gps/izat.conf:system/etc/izat.conf \
+    $(LOCAL_PATH)/gps/quipc.conf:system/etc/quipc.conf \
+    $(LOCAL_PATH)/gps/sap.conf:system/etc/sap.conf
+
+# DPM
+PRODUCT_PACKAGES += \
+    com.qti.dpmframework \
+    dpmapi
+
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8994
-
-# Vendor
-PRODUCT_PACKAGES += \
-    com.qualcomm.location
-
-PRODUCT_PACKAGES += \
-    libqmi_cci \
-    libqmi_common_so \
-    libqmiservices \
-    libqminvapi \
-    libqmi_client_qmux \
-    libqmi_encdec \
-    libsmemlog \
-    libidl \
-    libdsutils \
-    libdiag
 
 # Graphics
 PRODUCT_PACKAGES += \
@@ -214,6 +207,10 @@ PRODUCT_PACKAGES += \
     ethertypes \
     libebtc
 
+# Camrera
+PRODUCT_PACKAGES += \
+    Snap
+
 # Keystore
 PRODUCT_PACKAGES += \
     keystore.msm8994
@@ -226,39 +223,45 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     librs_jni
 
-# OMX
 PRODUCT_PACKAGES += \
-    libc2dcolorconvert \
-    libdashplayer \
-    libdivxdrmdecrypt \
-    libmm-omxcore \
     libOmxAacEnc \
     libOmxAmrEnc \
     libOmxCore \
     libOmxEvrcEnc \
     libOmxQcelp13Enc \
     libOmxVdec \
-    libOmxVdecHevc \
     libOmxVenc \
-    libOmxVidcCommon \
-    libstagefrighthw \
-    qcmediaplayer
+    libstagefrighthw
+
+#rmnetctl
+PRODUCT_PACKAGES += \
+    librmnetctl
 
 # Power
 PRODUCT_PACKAGES += \
     power.msm8994
-
-PRODUCT_BOOT_JARS += \
-    qcmediaplayer
 
 # Ril
 PRODUCT_PACKAGES += \
     libtinyxml2 \
     libxml2
 
+#workaround
+PRODUCT_PACKAGES += \
+    libboringssl-compat
+
 # Sensors
 PRODUCT_PACKAGES += \
     sensors.msm8994
+
+#stlport
+PRODUCT_PACKAGES += \
+    libstlport
+
+# CameraWrapper
+PRODUCT_PACKAGES += \
+    camera.msm8994 \
+    libcamera_shim
 
 # USB
 PRODUCT_PACKAGES += \
@@ -266,6 +269,9 @@ PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
+    ipacm \
+    ipacm-diag \
+    IPACM_cfg.xml \
     wpa_supplicant.conf \
     wpa_supplicant \
     libwpa_client \
@@ -276,14 +282,6 @@ PRODUCT_PACKAGES += \
     hostapd \
     hostapd_cli \
     dhcpcd.conf
-
-# set default USB configuration
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp
-
-# set USB OTG enabled to add support for USB storage type
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.isUsbOtgEnabled=1
 
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
@@ -304,6 +302,7 @@ PRODUCT_PACKAGES += \
     init.mdm.sh \
     init.qcom.class_core.sh \
     init.qcom.early_boot.sh	\
+    init.qcom.post_boot.sh \
     init.qcom.factory.sh \
     init.qcom.sh \
     init.qcom.syspart_fixup.sh \

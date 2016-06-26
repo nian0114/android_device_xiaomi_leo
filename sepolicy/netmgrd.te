@@ -1,2 +1,0 @@
-allow netmgrd netmgrd:netlink_socket { getopt };
-allow netmgrd sysfs_wake_lock:file { read write };

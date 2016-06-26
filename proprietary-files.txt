@@ -1,10 +1,7 @@
 framework/cneapiclient.jar
 framework/com.qti.dpmframework.jar
 framework/com.qti.snapdragon.sdk.display.jar
-framework/com.qualcomm.location.vzw_library.jar
 framework/com.quicinc.cne.jar
-framework/org.codeaurora.Performance.jar
-framework/qcom.fmradio.jar
 
 bin/ATFWD-daemon
 bin/adsprpcd
@@ -18,7 +15,6 @@ bin/mm-qcamera-daemon
 bin/mm-qcamera-app
 bin/msm_irqbalance
 bin/netmgrd
-bin/perfd
 bin/pm-proxy
 bin/pm-service
 bin/qmuxd
@@ -27,52 +23,37 @@ bin/radish
 bin/rfs_access
 bin/rmt_storage
 bin/sensors.qcom
-bin/sensorservice
 bin/sensor_select.sh
-bin/thermal-engine
 bin/time_daemon
 bin/usb_uicc_client
-bin/wcnss_filter
 
 #lib
-lib/librmnetctl.so
 lib/libmmcamera_interface.so
 lib/libmmjpeg_interface.so
 lib/libmm-qcamera.so
-lib/libqminvapi.so
 lib/libqomx_core.so
 lib/libsensorservice.so
-lib/libgps.utils.so
 lib/libinvensense_hal.so
 lib/libloc_api_v02.so
 lib/libloc_core.so
 lib/libloc_ds_api.so
 lib/libloc_eng.so
-lib/libcnefeatureconfig.so
 lib/egl/libGLES_android.so
 lib/hw/activity_recognition.msm8994.so
 lib/hw/audio.primary.msm8994.so
 lib/hw/camera.msm8994.so
-lib/hw/lights.msm8994.so
 lib/hw/sensors.leo.so
-lib/hw/gps.default.so
 
 #lib64
-lib64/libgps.utils.so
 lib64/libinvensense_hal.so
 lib64/libloc_api_v02.so
 lib64/libloc_core.so
 lib64/libloc_ds_api.so
 lib64/libloc_eng.so
-lib64/libqminvapi.so
-lib64/librmnetctl.so
 lib64/libsensorservice.so
-lib64/libcnefeatureconfig.so
 lib64/egl/libGLES_android.so
 lib64/hw/activity_recognition.msm8994.so
 lib64/hw/audio.primary.msm8994.so
-lib64/hw/gps.default.so
-lib64/hw/lights.msm8994.so
 lib64/hw/sensors.leo.so
 
 #vendor/lib
@@ -419,18 +400,13 @@ vendor/lib/lib-imsSDP.so
 vendor/lib/lib-imss.so
 vendor/lib/lib-imsvt.so
 vendor/lib/lib-imsxml.so
-vendor/lib/libizat_core.so
 vendor/lib/libjpegdhw.so
 vendor/lib/libjpegdmahw.so
 vendor/lib/libjpegehw.so
-vendor/lib/liblbs_core.so
 vendor/lib/liblistenjni.so
 vendor/lib/liblistensoundmodel2.so
 vendor/lib/libllvm-glnext.so
 vendor/lib/libllvm-qcom.so
-vendor/lib/liblocationservice.so
-vendor/lib/libloc_ext.so
-vendor/lib/liblowi_client.so
 vendor/lib/libmare-1.0.0.so
 vendor/lib/libmare-cpu-1.0.0.so
 vendor/lib/libmasc.so
@@ -660,7 +636,6 @@ vendor/lib/libwqe.so
 vendor/lib/libxml.so
 vendor/lib/libxtadapter.so
 vendor/lib/libxt_native.so
-vendor/lib/libxtwifi_ulp_adaptor.so
 vendor/lib/libxtwifi_zpp_adaptor.so
 #add lost vendor/lib
 vendor/lib/libactuator_bu64244gwz_s5k3m2xm_camcorder.so
@@ -715,7 +690,6 @@ vendor/lib/hw/flp.default.so
 vendor/lib/hw/sensors.msm8994.so
 vendor/lib/hw/sound_trigger.primary.msm8994.so
 #vendor/lib/mediadrm:
-vendor/lib/mediadrm/libdrmclearkeyplugin.so
 #vendor/lib/qcdrm/playready/lib:
 vendor/lib/qcdrm/playready/lib/libprdrmdecrypt_customer.so
 vendor/lib/qcdrm/playready/lib/libtzplayready_customer.so
@@ -810,17 +784,10 @@ vendor/lib64/lib-imsSDP.so
 vendor/lib64/lib-imss.so
 vendor/lib64/lib-imsvt.so
 vendor/lib64/lib-imsxml.so
-vendor/lib64/libizat_core.so
-vendor/lib64/liblbs_core.so
 vendor/lib64/liblistenjni.so
 vendor/lib64/liblistensoundmodel2.so
 vendor/lib64/libllvm-glnext.so
 vendor/lib64/libllvm-qcom.so
-vendor/lib64/liblocationservice.so
-vendor/lib64/libloc_ext.so
-vendor/lib64/libloc_xtra.so
-vendor/lib64/liblowi_client.so
-vendor/lib64/liblowi_wifihal.so
 vendor/lib64/libmare-1.0.0.so
 vendor/lib64/libmare-cpu-1.0.0.so
 vendor/lib64/libmasc.so
@@ -941,7 +908,6 @@ vendor/lib64/libwqe.so
 vendor/lib64/libxml.so
 vendor/lib64/libxtadapter.so
 vendor/lib64/libxt_native.so
-vendor/lib64/libxtwifi_ulp_adaptor.so
 vendor/lib64/libxtwifi_zpp_adaptor.so
 #vendor/lib64/egl
 vendor/lib64/egl/eglSubDriverAndroid.so
@@ -955,7 +921,6 @@ vendor/lib64/egl/libQTapGLES.so
 vendor/lib64/hw/flp.default.so
 vendor/lib64/hw/sensors.msm8994.so
 #vendor/lib64/mediadrm
-vendor/lib64/mediadrm/libdrmclearkeyplugin.so
 #vendor/etc
 vendor/etc/audio_effects.conf
 vendor/etc/audio_output_policy.conf
@@ -984,7 +949,6 @@ vendor/bin/fidodaemon
 vendor/bin/qti
 vendor/bin/RIDLClient.exe
 vendor/bin/sampleauthdaemon
-vendor/bin/slim_ap_daemon
 #etc/firmware
 etc/firmware/a225p5_pm4.fw
 etc/firmware/a225_pfp.fw
@@ -1052,3 +1016,23 @@ lib/modules/test-iosched.ko
 lib/modules/ufs_test.ko
 lib/modules/wil6210.ko
 lib/modules/wlan.ko
+
+#add for m
+vendor/lib/libqti-iop-client.so
+vendor/lib64/libqti-iop-client.so
+vendor/lib/hw/flp.default.so
+vendor/lib/libflp.so
+vendor/lib/libgeofence.so
+vendor/lib/libizat_core.so
+vendor/lib/liblbs_core.so
+vendor/lib/libquipc_os_api.so
+vendor/lib/libxtadapter.so
+vendor/lib64/hw/flp.default.so
+vendor/lib64/libflp.so
+vendor/lib64/libgeofence.so
+vendor/lib64/libizat_core.so
+vendor/lib64/liblbs_core.so
+vendor/lib64/libquipc_os_api.so
+vendor/lib64/libxtadapter.so
+vendor/bin/perfd
+vendor/bin/thermal-engine
