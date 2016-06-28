@@ -323,3 +323,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.boot-dex2oat-threads=4 \
     dalvik.vm.dex2oat-threads=2 \
     dalvik.vm.image-dex2oat-threads=4
+
+# Emergency call overrides for Korea,China
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.ecc_hard_count=1 \
+    persist.radio.ecc_hard_1=111,113,117,122,125,110,120,119
