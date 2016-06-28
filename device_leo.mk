@@ -44,6 +44,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/mixer_paths_i2s.xml:system/etc/mixer_paths_i2s.xml \
     $(LOCAL_PATH)/audio/surround_sound_3mic/surround_sound_rec_AZ.cfg:system/etc/surround_sound_3mic/surround_sound_rec_AZ.cfg
 
+#Bluetooth
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.bt.bdaddr_path=/data/misc/bluetooth/bdaddr.txt
+
 #permissions
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/permissions/cneapiclient.xml:system/etc/permissions/cneapiclient.xml \
@@ -284,7 +288,9 @@ PRODUCT_PACKAGES += \
     p2p_supplicant_overlay.conf \
     hostapd \
     hostapd_cli \
-    dhcpcd.conf
+    dhcpcd.conf \
+    libqminvapi \
+    xiaomi_hwaddrs
 
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
@@ -340,3 +346,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # IO Scheduler
 PRODUCT_PROPERTY_OVERRIDES += \
     sys.io.scheduler=bfq
+

@@ -980,12 +980,15 @@ service RIDL /system/vendor/bin/RIDLClient.exe
     # removed for security team - misc bluetooth radio gps wifi diag media_rw
     # limited to 12 groups.  Unused: audio usb qcom_diag net_bt_admin net_bt_stac net_raw net_admin
 
-# Configure IO scheduler
-on property:sys.io.scheduler=*
-    write /sys/block/mmcblk0/queue/scheduler ${sys.io.scheduler}
+service xiaomi_hwaddrs /system/bin/xiaomi_hwaddrs
+    class core
+    user root
+    group system wifi
+    oneshot
 
-on property:persist.sys.io.scheduler=*
-    setprop sys.io.scheduler ${persist.sys.io.scheduler}
-
-on property:dev.bootcomplete=1
-    setprop sys.io.scheduler "cfq"
+# Running hwaddrs under init is enforcing 0600, we need more
+on property:init.svc.xiaomi_hwaddrs=stopped
+    chmod 644 /data/misc/wifi/wlan_mac.bin
+    chown system wifi /data/misc/wifi/wlan_mac.bin
+    chmod 644 /data/misc/bluetooth/bdaddr.txt
+    chown bluetooth bluetooth /data/misc/bluetooth/bdaddr.txt

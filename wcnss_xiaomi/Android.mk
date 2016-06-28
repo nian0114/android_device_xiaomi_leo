@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 The CyanogenMod Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,22 +14,23 @@
 # limitations under the License.
 #
 
-ifeq ($(TARGET_DEVICE),leo)
-
-LOCAL_PATH := $(call my-dir)
+LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES := wcnss_xiaomi_client.c
-
-LOCAL_C_INCLUDES += hardware/qcom/wlan/wcnss_service
-LOCAL_CFLAGS += -Wall
-
-LOCAL_SHARED_LIBRARIES := libc libcutils libutils liblog libqminvapi
-
+LOCAL_MODULE := libqminvapi
+LOCAL_MODULE_OWNER := xiaomi
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE := libwcnss_qmi
+LOCAL_SRC_FILES_arm := lib/libqminvapi.so
+LOCAL_SRC_FILES_arm64 := lib64/libqminvapi.so
+LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)
+LOCAL_MODULE_SUFFIX := .so
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+include $(BUILD_PREBUILT)
 
-include $(BUILD_SHARED_LIBRARY)
-
-endif
+include $(CLEAR_VARS)
+LOCAL_MODULE := xiaomi_hwaddrs
+LOCAL_MODULE_TAGS := optional
+LOCAL_SRC_FILES := get_xiaomi_mac.c
+LOCAL_SHARED_LIBRARIES := libc libqminvapi
+LOCAL_PRELINK_MODULE := false
+include $(BUILD_EXECUTABLE)
