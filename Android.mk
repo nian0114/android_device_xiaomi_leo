@@ -21,8 +21,8 @@ ifeq ($(TARGET_DEVICE),leo)
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
 BT_IMAGES := \
-+    btfw30.tlv btnv30.bin btfw32.tlv btnv32.bin
-+
+    btfw30.tlv btnv30.bin btfw32.tlv btnv32.bin
+
 BT_SYMLINKS := $(addprefix $(TARGET_OUT)/vendor/firmware/,$(notdir $(BT_IMAGES)))
 $(BT_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	@echo "Bluetooth firmware link: $@"
