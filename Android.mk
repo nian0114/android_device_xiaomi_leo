@@ -20,20 +20,4 @@ ifeq ($(TARGET_DEVICE),leo)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
-BT_IMAGES := \
-    btfw30.tlv btnv30.bin btfw32.tlv btnv32.bin
-
-BT_SYMLINKS := $(addprefix $(TARGET_OUT)/vendor/firmware/,$(notdir $(BT_IMAGES)))
-$(BT_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "Bluetooth firmware link: $@"
-	@mkdir -p $(dir $@)
-	@rm -rf $@
-	$(hide) ln -sf /bt_firmware/image/$(notdir $@) $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(BT_SYMLINKS)
-
-# Read WiFi MAC Address from persist partition
-$(shell mkdir -p $(TARGET_OUT_ETC)/firmware/wlan/qca_cld ; \
-	ln -sf /data/misc/wifi/wlan_mac.bin $(TARGET_OUT_ETC)/firmware/wlan/qca_cld/wlan_mac.bin)
-
 endif
