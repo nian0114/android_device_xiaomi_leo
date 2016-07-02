@@ -11,15 +11,6 @@
     "repository": "android_external_stlport",
     "target_path": "external/stlport"
   },
-  {
-    "repository": "android_kernel_xiaomi_libra",
-    "branch": "mkm",
-    "target_path": "kernel/xiaomi/libra"
-  },
-  {
-    "repository": "android_vendor_xiaomi_leo",
-    "target_path": "vendor/xiaomi/leo"
-  },
  {
     "repository": "android_external_sony_boringssl-compat",
     "target_path": "external/sony_boringssl-compat"
