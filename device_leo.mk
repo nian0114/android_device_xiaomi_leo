@@ -269,6 +269,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     camera.msm8994 \
     libcamera_shim
+# Gello
+PRODUCT_PACKAGES += \
+    Gello
 
 # USB
 PRODUCT_PACKAGES += \
