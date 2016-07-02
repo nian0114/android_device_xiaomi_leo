@@ -236,5 +236,9 @@ BOARD_SUPPRESS_SECURE_ERASE := true
 TW_EXTERNAL_STORAGE_PATH := "/usb-otg"
 TW_EXTERNAL_STORAGE_MOUNT_POINT := "usb-otg"
 
+# SELinux
+include device/qcom/sepolicy/sepolicy.mk
+BOARD_SEPOLICY_DIRS += device/xiaomi/leo/sepolicy
+
 # inherit from the proprietary version
 -include vendor/xiaomi/leo/BoardConfigVendor.mk
