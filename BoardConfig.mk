@@ -1,9 +1,5 @@
 LOCAL_PATH := device/xiaomi/leo
 
-USE_CAMERA_STUB := true
-
-# inherit from the proprietary version
--include vendor/xiaomi/leo/BoardConfigVendor.mk
 
 #Platform
 TARGET_BOARD_PLATFORM := msm8994
@@ -18,13 +14,14 @@ TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT := cortex-a53
+
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := cortex-a53.a57
-TARGET_CPU_CORTEX_A53 := true
+TARGET_2ND_CPU_VARIANT := cortex-a7
+
 ENABLE_CPUSETS := true
 TARGET_USES_64_BIT_BINDER := true
 TARGET_CPU_SMP := true
@@ -146,11 +143,12 @@ TARGET_LDPRELOAD := libNimsWrap.so
 BOARD_USES_QCNE := true
 
 # Camera
-USE_DEVICE_SPECIFIC_CAMERA := true
 # Force camera module to be compiled only in 32-bit mode on 64-bit systems
 # Once camera module can run in the native mode of the system (either
 # 32-bit or 64-bit), the following line should be deleted
 BOARD_QTI_CAMERA_32BIT_ONLY := true
+USE_CAMERA_STUB := true
+USE_DEVICE_SPECIFIC_CAMERA := true
 COMMON_GLOBAL_CFLAGS += -DCAMERA_VENDOR_L_COMPAT
 
 #Light HAL
@@ -238,9 +236,5 @@ BOARD_SUPPRESS_SECURE_ERASE := true
 TW_EXTERNAL_STORAGE_PATH := "/usb-otg"
 TW_EXTERNAL_STORAGE_MOUNT_POINT := "usb-otg"
 
-# SELinux
-include device/qcom/sepolicy/sepolicy.mk
-
-BOARD_SEPOLICY_DIRS += device/xiaomi/leo/sepolicy
-
-BOARD_SEPOLICY_UNION += \
+# inherit from the proprietary version
+-include vendor/xiaomi/leo/BoardConfigVendor.mk
